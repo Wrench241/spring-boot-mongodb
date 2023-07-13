@@ -2,26 +2,26 @@ package com.springproject.spring2.Resources;
 
 import com.springproject.spring2.domain.User;
 
+import com.springproject.spring2.services.UserServices;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/pai")
+@RequestMapping(value = "/user")
 public class UserResources {
+
+    @Autowired
+    private UserServices services;
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<User>> findAll() {
-        User maria = new User("1","maria","maria@gmail.com");
-        User jose = new User("2","jose","jose@gmail.com");
-        User joao = new User("3","joao","joao@gmail.com");
-        List<User> list = new ArrayList<>();
-        list.addAll(Arrays.asList(maria,jose,joao));
+       List<User> list = services.findAll();
         return ResponseEntity.ok().body(list);
 
     }
