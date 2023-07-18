@@ -7,6 +7,7 @@ import com.springproject.spring2.services.exception.ObjectNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Service
@@ -31,6 +32,12 @@ public class UserServices extends User {
 
     public User fromDTO(UserDTO dto){
         return new User(dto.getId(), dto.getName(), dto.getEmail());
+    }
+
+    //deletando id
+    public void delete(String id){
+        findById(id);
+        repo.deleteById(id);
     }
 
 }
