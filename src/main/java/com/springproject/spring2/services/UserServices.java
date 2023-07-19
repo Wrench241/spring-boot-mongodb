@@ -6,9 +6,11 @@ import com.springproject.spring2.repository.UserRepository;
 import com.springproject.spring2.services.exception.ObjectNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServices extends User {
@@ -38,6 +40,23 @@ public class UserServices extends User {
     public void delete(String id){
         findById(id);
         repo.deleteById(id);
+    }
+
+
+    public User Update(User obj){
+        Optional<User> newObj = repo.findById(obj.getId());
+        if (newObj.isPresent()){
+            User existingUser = newObj.get();
+            updateData(existingUser, obj);
+            return repo.save(existingUser);
+        } else {
+            throw new ObjectNotFound("objeto não encontrado");
+        }
+    }
+
+    private void updateData(User newObj, User obj) {
+        newObj.setName(obj.getName());
+        newObj.setEmail(obj.getEmail());
     }
 
 }
