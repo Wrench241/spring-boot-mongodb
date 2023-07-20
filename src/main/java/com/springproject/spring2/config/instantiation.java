@@ -2,6 +2,7 @@ package com.springproject.spring2.config;
 
 import com.springproject.spring2.domain.Post;
 import com.springproject.spring2.domain.User;
+import com.springproject.spring2.dto.AuthorDTO;
 import com.springproject.spring2.repository.PostRepository;
 import com.springproject.spring2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +34,12 @@ public class instantiation implements CommandLineRunner {
         User alex = new User(null, "alex", "alex@gmail.com");
         User felipe = new User(null, "felipe", "felipe@gmail.com");
 
-        Post post1 = new Post(null, date.parse("19/07/2023"), "pega", "sai", maria);
-        Post post2 = new Post(null, date.parse("19/07/2023"), "pedga", "ssdai", maria);
+        userRepository.saveAll(Arrays.asList(maria, alex, felipe));
+
+        Post post1 = new Post(null, date.parse("19/07/2023"), "pega", "sai", new AuthorDTO(maria));
+        Post post2 = new Post(null, date.parse("19/07/2023"), "pedga", "ssdai", new AuthorDTO(maria));
 
         postRepo.saveAll(Arrays.asList(post1, post2));
-        userRepository.saveAll(Arrays.asList(maria, alex, felipe));
+
     }
 }
