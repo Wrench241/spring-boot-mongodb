@@ -1,5 +1,6 @@
 package com.springproject.spring2.Resources;
 
+import com.springproject.spring2.domain.Post;
 import com.springproject.spring2.domain.User;
 
 import com.springproject.spring2.dto.UserDTO;
@@ -33,6 +34,12 @@ public class UserResources {
     public ResponseEntity<UserDTO> findById(@PathVariable String id) {
         User obj = services.findById(id);
         return ResponseEntity.ok().body(new UserDTO(obj));
+    }
+
+    @RequestMapping(value = "/{id}/posts", method = RequestMethod.GET)
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id){
+        User obj = services.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
     }
 
     //endpont pra inserir um novo user
