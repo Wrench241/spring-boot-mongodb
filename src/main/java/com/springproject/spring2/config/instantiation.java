@@ -3,6 +3,7 @@ package com.springproject.spring2.config;
 import com.springproject.spring2.domain.Post;
 import com.springproject.spring2.domain.User;
 import com.springproject.spring2.dto.AuthorDTO;
+import com.springproject.spring2.dto.ComentDTO;
 import com.springproject.spring2.repository.PostRepository;
 import com.springproject.spring2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,15 @@ public class instantiation implements CommandLineRunner {
         Post post2 = new Post(null, date.parse("19/07/2023"), "acampar", "muito bom", new AuthorDTO(maria));
 
         postRepo.saveAll(Arrays.asList(post1, post2));
+
+        ComentDTO coment = new ComentDTO("vai ter festa hoje",date.parse("20/08/2023"), new AuthorDTO(alex));
+        ComentDTO coment2 = new ComentDTO("sucesso a todos os devs",date.parse("20/08/2023"), new AuthorDTO(alex));
+        ComentDTO coment3 = new ComentDTO("TI",date.parse("20/08/2023"), new AuthorDTO(alex));
+
+        post1.getComents().addAll(Arrays.asList(coment, coment2));
+        post2.getComents().addAll(Arrays.asList(coment3));
+
+        postRepo.saveAll(Arrays.asList(post1,post2));
 
         maria.getPosts().addAll(Arrays.asList(post1,post2));
         userRepository.save(maria);
